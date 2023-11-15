@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "Watchlist",
+	"description": "Fetches current tab url.",
+	"version": "0.1",
+	"author": "Philipp Schwind",
+	"browser_action": {
+		"default_icon": "extension_image.png",
+		"default_title": "Just observing your current url."
+	},
+	"permissions": ["tabs", "activeTab", "http://127.0.0.1:5000/*", "storage"],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	}
+}
