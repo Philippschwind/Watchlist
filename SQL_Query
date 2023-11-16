@@ -1,0 +1,14 @@
+CREATE TABLE Shows(
+    show_id integer PRIMARY KEY AUTOINCREMENT,
+    title nchar(50),
+    ep_count int
+)
+
+CREATE TABLE Episodes(
+	ep_id integer PRIMARY KEY AUTOINCREMENT,
+	title nchar(50),
+	ep_nr int,
+	show_id integer,
+    watch_count int,
+    FOREIGN KEY (show_id) REFERENCES Shows (show_id)
+)

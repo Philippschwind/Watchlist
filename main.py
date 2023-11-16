@@ -6,7 +6,13 @@ Creation Date: 15.11.23
 """
 
 import server
-
+from db_connection import Database
 
 if __name__ == '__main__':
+
+    #db = Database()
+    #db.create_tables()
+    #db.disconnect()
+
     server.app.run()
+
