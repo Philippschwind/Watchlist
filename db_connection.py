@@ -1,8 +1,8 @@
 import sqlite3
-
-
+from Show import Show
+from Episode import Episode
 class Database:
-    def __int__(self, db_name):
+    def __init__(self, db_name):
         self.connect(db_name)
 
     sqliteConnection = None
@@ -65,7 +65,8 @@ class Database:
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
 
-        return rows[0]
+        if rows:
+            return rows[0]
 
     def check_duplicates(self, ep_nr, show_id):
         query = """SELECT * FROM Episodes WHERE ep_nr={} AND show_id={}""".format(ep_nr, show_id)
@@ -75,3 +76,39 @@ class Database:
         if rows:
             return True
         return False
+
+    def get_all_shows(self):
+        self.cursor.execute('SELECT * FROM shows')
+        rows = self.cursor.fetchall()
+        shows = []
+        for row in rows:
+            show = Show(show_id=row[0], title=row[1], ep_count=row[2], completed=False)
+            shows.append(show)
+        return shows
+
+    def search_shows(self, title):
+        self.cursor.execute('SELECT * FROM shows WHERE title LIKE ?', ('%' + title + '%',))
+        rows = self.cursor.fetchall()
+        shows = []
+        for row in rows:
+            show = Show(show_id=row[0], title=row[1], ep_count=row[2], completed=False)
+            shows.append(show)
+        return shows
+
+    def get_show_by_id(self, show_id):
+        self.cursor.execute('SELECT * FROM shows WHERE show_id = ?', (show_id,))
+        rows = self.cursor.fetchall()
+        shows = []
+        for row in rows:
+            show = Show(show_id=row[0], title=row[1], ep_count=row[2], completed=False)
+            shows.append(show)
+        return shows[0]
+
+    def get_episodes_for_show(self, show):
+        self.cursor.execute('SELECT * FROM episodes WHERE show_id = ?', (show.show_id,))
+        rows = self.cursor.fetchall()
+        episodes = []
+        for row in rows:
+            episode = Episode(row[2], show)
+            episodes.append(episode)
+        return episodes

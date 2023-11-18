@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#shows-container, #episodes-container {
+    margin-bottom: 20px;
+}
+
+.show {
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f2f2f2;
+}
+
+.show:hover {
+    background-color: #ddd;
+}
+
+.episode {
+    margin-bottom: 5px;
+}
